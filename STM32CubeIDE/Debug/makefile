@@ -64,8 +64,8 @@ all: main-build
 main-build: Dual_EveCore_Motherboard.elf secondary-outputs
 
 # Tool invocations
-Dual_EveCore_Motherboard.elf Dual_EveCore_Motherboard.map: $(OBJS) $(USER_OBJS) C:\Users\Mamdouh\Downloads\Cub32WS\TEST\STM32CubeIDE\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Dual_EveCore_Motherboard.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Mamdouh\Downloads\Cub32WS\TEST\STM32CubeIDE\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Dual_EveCore_Motherboard.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Dual_EveCore_Motherboard.elf Dual_EveCore_Motherboard.map: $(OBJS) $(USER_OBJS) C:\Users\Mamdouh\Downloads\Cub32WS\TEST\Dual-EveCore-MB-Firmware\STM32CubeIDE\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Dual_EveCore_Motherboard.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Mamdouh\Downloads\Cub32WS\TEST\Dual-EveCore-MB-Firmware\STM32CubeIDE\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Dual_EveCore_Motherboard.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

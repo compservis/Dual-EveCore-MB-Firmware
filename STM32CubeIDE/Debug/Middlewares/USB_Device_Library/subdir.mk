@@ -5,10 +5,10 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c 
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c 
 
 OBJS += \
 ./Middlewares/USB_Device_Library/usbd_cdc.o \
@@ -24,13 +24,13 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Middlewares/USB_Device_Library/usbd_cdc.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c Middlewares/USB_Device_Library/subdir.mk
+Middlewares/USB_Device_Library/usbd_cdc.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c Middlewares/USB_Device_Library/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F405xx -c -I../../USB_DEVICE/App -I../../USB_DEVICE/Target -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
-Middlewares/USB_Device_Library/usbd_core.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c Middlewares/USB_Device_Library/subdir.mk
+Middlewares/USB_Device_Library/usbd_core.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c Middlewares/USB_Device_Library/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F405xx -c -I../../USB_DEVICE/App -I../../USB_DEVICE/Target -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
-Middlewares/USB_Device_Library/usbd_ctlreq.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c Middlewares/USB_Device_Library/subdir.mk
+Middlewares/USB_Device_Library/usbd_ctlreq.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c Middlewares/USB_Device_Library/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F405xx -c -I../../USB_DEVICE/App -I../../USB_DEVICE/Target -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
-Middlewares/USB_Device_Library/usbd_ioreq.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c Middlewares/USB_Device_Library/subdir.mk
+Middlewares/USB_Device_Library/usbd_ioreq.o: C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c Middlewares/USB_Device_Library/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F405xx -c -I../../USB_DEVICE/App -I../../USB_DEVICE/Target -I../../Core/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc -I../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Middlewares-2f-USB_Device_Library

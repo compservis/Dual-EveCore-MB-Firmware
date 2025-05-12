@@ -43,6 +43,8 @@
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
 
+TIM_HandleTypeDef htim2;
+
 UART_HandleTypeDef huart4;
 
 /* USER CODE BEGIN PV */
@@ -54,6 +56,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_UART4_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -71,12 +74,15 @@ uint32_t              TxMailbox;
 
 
 uint8_t rx_buff[30];
-uint8_t tx_buff[30] = "RS232 Loopback Test OK !\n";
+uint8_t  firmwareMainMsg[40] = "STM32-EvCore Firmware Test4 :\n";
+uint8_t tx_buff[30] = "RS232 Loop Back Test OK !\n";
 
-uint8_t SPI_TX_Buffer[3] = {73,25,10};
+uint8_t SPI_TX_Buffer[3] = {'F','U','K'};
 uint8_t SPI_RX_Buffer[4] = {0};
 
 int newData = 0;
+
+int timer = 0;
 
 
 
@@ -114,11 +120,14 @@ int main(void)
   MX_SPI1_Init();
   MX_USB_DEVICE_Init();
   MX_UART4_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
 
   TxData[0] = 50;
   TxData[1] = 0xAA;
+
+  HAL_TIM_OC_Start_IT(&htim2,TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
@@ -126,25 +135,15 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(newData ==1){
-	newData  = 0;
-	char msg[100] = {0};
 
-    //sprintf(msg, "New SPI Data Received: %d: %d: %d\n", SPI_RX_Buffer[0] , SPI_RX_Buffer[1] , SPI_RX_Buffer[2] );
-    //CDC_Transmit_FS(msg, strlen(msg));
-					}
-	HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin); //Toggle LED
-    HAL_UART_Transmit_IT(&huart4, tx_buff, 28);
-    CDC_Transmit_FS("\nSTM32-EvCore Firmware Test1 :\n",34);
-    HAL_SPI_TransmitReceive_IT(&hspi1, SPI_TX_Buffer, SPI_RX_Buffer, 3); //Sending in Interrupt mode
-	HAL_Delay(1000); //Delay 1 Seconds
-	if(HAL_UART_Receive_IT(&huart4, rx_buff, 28) ==HAL_OK) //if transfer is successful
-      {
-	    CDC_Transmit_FS(rx_buff,28);
-        __NOP(); //You need to toggle a breakpoint on this line!
-      } else {
-      __NOP();
-      }
+	//HAL_Delay(1000); //Delay 1 Seconds
+
+
+
+
+
+
+
   }
     /* USER CODE END WHILE */
 
@@ -232,6 +231,64 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 10000;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 10;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
 
 }
 
@@ -356,15 +413,56 @@ static void MX_GPIO_Init(void)
 
 void USB_CDC_RxHandler(uint8_t* Buf, uint32_t Len)
 {
-    CDC_Transmit_FS(Buf, Len);
+    // when usb data receive do....
 }
+
 
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 {
   	newData = 1;
 
+    if (hspi == &hspi1) {
+
+    	char msg[100] = {0};
+
+        sprintf(msg, "New SPI Data Received: %d: %d: %d\n", SPI_RX_Buffer[0] , SPI_RX_Buffer[1] , SPI_RX_Buffer[2] );
+        CDC_Transmit_FS(msg, strlen(msg));
+
+    }
+
 }
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+
+  if (huart == &huart4) {
+    // Enable reception for the next character
+    HAL_UART_Receive_IT(&huart4, rx_buff, 1);
+    CDC_Transmit_FS(rx_buff,1);
+
+  }
+}
+
+void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == TIM2 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+    {
+    	timer++;
+    	if(timer%1000 == 0){
+
+
+    		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin); //Toggle LED
+    		HAL_UART_Transmit_IT(&huart4, tx_buff, 28);
+    		HAL_SPI_TransmitReceive_IT(&hspi1, SPI_TX_Buffer, SPI_RX_Buffer, 1); //Sending in Interrupt mode
+    	    HAL_UART_Receive_IT(&huart4, rx_buff, 1);
+    	}
+    	if(timer%2500 == 0){
+
+    		CDC_Transmit_FS(firmwareMainMsg,34);
+    	}
+
+
+       }
+}
 
 
 /* USER CODE END 4 */

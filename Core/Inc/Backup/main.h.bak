@@ -77,8 +77,6 @@ void Error_Handler(void);
 #define ST_IRQ2_EXTI_IRQn EXTI0_IRQn
 #define ST_SYNC11_Pin GPIO_PIN_1
 #define ST_SYNC11_GPIO_Port GPIOB
-#define LED1_Pin GPIO_PIN_2
-#define LED1_GPIO_Port GPIOB
 #define ST_SYNC01_Pin GPIO_PIN_10
 #define ST_SYNC01_GPIO_Port GPIOB
 #define ST_SYNC12_Pin GPIO_PIN_11
@@ -89,8 +87,8 @@ void Error_Handler(void);
 #define LED3_GPIO_Port GPIOC
 #define LED2_Pin GPIO_PIN_8
 #define LED2_GPIO_Port GPIOC
-#define LED1ACL_Pin GPIO_PIN_9
-#define LED1ACL_GPIO_Port GPIOC
+#define LED1_Pin GPIO_PIN_9
+#define LED1_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 

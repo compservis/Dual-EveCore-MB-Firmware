@@ -1,6 +1,6 @@
 Application/User/USB_DEVICE/App/usb_device.o: \
- C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usb_device.c \
- C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usb_device.h \
+ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usb_device.c \
+ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usb_device.h \
  ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
  ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h \
  ../../Drivers/CMSIS/Include/core_cm4.h \
@@ -27,6 +27,8 @@ Application/User/USB_DEVICE/App/usb_device.o: \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
@@ -38,11 +40,11 @@ Application/User/USB_DEVICE/App/usb_device.o: \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
- C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_desc.h \
+ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_desc.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_cdc_if.h
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usb_device.h:
+ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_cdc_if.h
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usb_device.h:
 ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
 ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:
 ../../Drivers/CMSIS/Include/core_cm4.h:
@@ -69,6 +71,8 @@ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usb_device.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
@@ -81,7 +85,7 @@ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usb_device.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_desc.h:
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_desc.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_cdc_if.h:
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_cdc_if.h:

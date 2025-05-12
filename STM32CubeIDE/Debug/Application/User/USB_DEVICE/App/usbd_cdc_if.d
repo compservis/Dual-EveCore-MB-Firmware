@@ -1,6 +1,6 @@
 Application/User/USB_DEVICE/App/usbd_cdc_if.o: \
- C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_cdc_if.c \
- C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_cdc_if.h \
+ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_cdc_if.c \
+ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_cdc_if.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
@@ -31,6 +31,8 @@ Application/User/USB_DEVICE/App/usbd_cdc_if.o: \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
@@ -38,7 +40,7 @@ Application/User/USB_DEVICE/App/usbd_cdc_if.o: \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
-C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_cdc_if.h:
+C:/Users/Mamdouh/Downloads/Cub32WS/TEST/Dual-EveCore-MB-Firmware/USB_DEVICE/App/usbd_cdc_if.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
@@ -70,6 +72,8 @@ C:/Users/Mamdouh/Downloads/Cub32WS/TEST/USB_DEVICE/App/usbd_cdc_if.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
