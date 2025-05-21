@@ -41,6 +41,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+CAN_HandleTypeDef hcan2;
+
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
@@ -57,6 +59,7 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_UART4_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_CAN2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -64,12 +67,15 @@ static void MX_TIM2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-//CAN_RxHeaderTypeDef   RxHeader;
-uint8_t               RxData[8];
 
-//CAN_TxHeaderTypeDef   TxHeader;
+
+
+CAN_TxHeaderTypeDef   TxHeader;
+CAN_RxHeaderTypeDef   RxHeader;
 uint8_t               TxData[8];
+uint8_t               RxData[8];
 uint32_t              TxMailbox;
+
 
 
 
@@ -77,12 +83,22 @@ uint8_t rx_buff[30];
 uint8_t  firmwareMainMsg[40] = "STM32-EvCore Firmware Test4 :\n";
 uint8_t tx_buff[30] = "RS232 Loop Back Test OK !\n";
 
-uint8_t SPI_TX_Buffer[3] = {'F','U','K'};
-uint8_t SPI_RX_Buffer[4] = {0};
+uint16_t SPI_TX_Buffer[3] = {1234,5678,9012};
+uint16_t SPI_RX_Buffer[4] = {0};
 
 int newData = 0;
 
 int timer = 0;
+int timer1 = 10;
+int timer2 = 20;
+int timer3 = 30;
+int timer4 = 40;
+
+
+
+
+
+
 
 
 
@@ -121,6 +137,7 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_UART4_Init();
   MX_TIM2_Init();
+  MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -129,19 +146,59 @@ int main(void)
 
   HAL_TIM_OC_Start_IT(&htim2,TIM_CHANNEL_1);
 
+  TxHeader.IDE = CAN_ID_STD;
+  TxHeader.StdId = 0x10;
+  TxHeader.RTR = CAN_RTR_DATA;
+  TxHeader.DLC = 2;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+
   while (1)
   {
 
-	//HAL_Delay(1000); //Delay 1 Seconds
 
 
+   	if(timer1 >= 1000){
+
+   		timer1 = 0;
+   		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin); //Toggle LED
+   		HAL_UART_Transmit_IT(&huart4, tx_buff, 28);
+   	    HAL_UART_Receive_IT(&huart4, rx_buff, 1);
+
+   	}
+
+   	if(timer2 >= 1200){
+
+   		timer2 = 0;
+
+   		HAL_SPI_TransmitReceive_IT(&hspi1, SPI_TX_Buffer, SPI_RX_Buffer, 3); //Sending in Interrupt mode
+   	}
 
 
+   	if(timer3 >= 1400){
 
+   		timer3 = 0;
+
+   	   /* Start the Transmission process */
+   	   if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
+   	    {
+   	    	/* Transmission request Error */
+   	          Error_Handler();
+   	    }
+
+
+   	}
+
+   	if(timer4 >= 1600){
+
+   		timer4 = 0;
+
+   		CDC_Transmit_FS(firmwareMainMsg,34);
+   	}
 
 
   }
@@ -194,6 +251,72 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief CAN2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CAN2_Init(void)
+{
+
+  /* USER CODE BEGIN CAN2_Init 0 */
+
+  /* USER CODE END CAN2_Init 0 */
+
+  /* USER CODE BEGIN CAN2_Init 1 */
+
+  CAN_FilterTypeDef  sFilterConfig;
+
+  /* USER CODE END CAN2_Init 1 */
+  hcan2.Instance = CAN2;
+  hcan2.Init.Prescaler = 17;
+  hcan2.Init.Mode = CAN_MODE_SILENT_LOOPBACK;
+  hcan2.Init.SyncJumpWidth = CAN_SJW_2TQ;
+  hcan2.Init.TimeSeg1 = CAN_BS1_5TQ;
+  hcan2.Init.TimeSeg2 = CAN_BS2_4TQ;
+  hcan2.Init.TimeTriggeredMode = DISABLE;
+  hcan2.Init.AutoBusOff = ENABLE;
+  hcan2.Init.AutoWakeUp = ENABLE;
+  hcan2.Init.AutoRetransmission = ENABLE;
+  hcan2.Init.ReceiveFifoLocked = DISABLE;
+  hcan2.Init.TransmitFifoPriority = DISABLE;
+
+
+  if (HAL_CAN_Init(&hcan2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CAN2_Init 2 */
+
+
+
+  /*##-3- Start the CAN peripheral ###########################################*/
+ if (HAL_CAN_Start(&hcan2) != HAL_OK)
+ {
+    /* Start Error */
+    Error_Handler();
+ }
+
+  /*##-4- Activate CAN RX notification #######################################*/
+ if (HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK)
+ {
+    /* Notification Error */
+   Error_Handler();
+ }
+
+
+
+
+
+
+
+
+
+
+  /* USER CODE END CAN2_Init 2 */
+
 }
 
 /**
@@ -308,7 +431,7 @@ static void MX_UART4_Init(void)
 
   /* USER CODE END UART4_Init 1 */
   huart4.Instance = UART4;
-  huart4.Init.BaudRate = 38400;
+  huart4.Init.BaudRate = 9600;
   huart4.Init.WordLength = UART_WORDLENGTH_9B;
   huart4.Init.StopBits = UART_STOPBITS_1;
   huart4.Init.Parity = UART_PARITY_EVEN;
@@ -383,14 +506,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF9_CAN2;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
   /*Configure GPIO pins : LED3_Pin LED2_Pin LED1_Pin */
   GPIO_InitStruct.Pin = LED3_Pin|LED2_Pin|LED1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -447,22 +562,60 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == TIM2 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
     {
     	timer++;
-    	if(timer%1000 == 0){
+    	timer1++;
+    	timer2++;
+    	timer3++;
+    	timer4++;
 
-
-    		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin); //Toggle LED
-    		HAL_UART_Transmit_IT(&huart4, tx_buff, 28);
-    		HAL_SPI_TransmitReceive_IT(&hspi1, SPI_TX_Buffer, SPI_RX_Buffer, 1); //Sending in Interrupt mode
-    	    HAL_UART_Receive_IT(&huart4, rx_buff, 1);
-    	}
-    	if(timer%2500 == 0){
-
-    		CDC_Transmit_FS(firmwareMainMsg,34);
-    	}
-
-
-       }
+     }
 }
+
+
+
+
+
+/**
+  * @brief  Transmission  complete callback in non blocking mode
+  * @param  CanHandle: pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
+/**
+  * @brief  Rx Fifo 0 message pending callback
+  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
+
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+  if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK)
+  {
+    Error_Handler();
+
+  }
+	else{
+
+		char msg[200] = {0};
+
+		sprintf(msg, "New CAN Message Received\n ID: %d\n SIZE: %d\n Value: %d\n", RxHeader.StdId , RxHeader.DLC , RxData[0] );
+		CDC_Transmit_FS(msg, strlen(msg));
+
+	}
+
+  if ((RxHeader.StdId == 0x103))
+  {
+	  //////////////////////////////////////
+  }
+  /* Display LEDx */
+   if ((RxHeader.StdId == 0x321) && (RxHeader.IDE == CAN_ID_STD) && (RxHeader.DLC == 2))
+   {
+
+   }
+}
+
+
 
 
 /* USER CODE END 4 */
